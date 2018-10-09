@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import SideBar from './../containers/SideBar.jsx';
+import MainContainer from './MainContainer.jsx';
+import './app.css';
 
 class App extends Component {
   constructor(props) {
@@ -7,9 +9,10 @@ class App extends Component {
   }
   render() {
     return (
-      <div>
+      <div id='app-container'>
         Scuba-squad
         <SideBar />
+        <MainContainer />
       </div>
     )
   }
