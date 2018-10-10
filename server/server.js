@@ -32,6 +32,11 @@ app.get('/categories', Categories.getCategories, (req, res) => {
   res.status(200).send('successfully connected to categories');
 });
 
+// add category
+app.post('/addCategory', Categories.addCategory, (req, res) => {
+  res.status(200).send('successfully connected to categories');
+});
+
 // delete category
 app.delete('/categories/:id', Categories.deleteCategory, (req, res) => {
   res.status(200).send('successfully deleted a category');
