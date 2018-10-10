@@ -3,10 +3,13 @@ import { connect } from 'react-redux';
 import '../components/style.css';
 import * as actions from '../actions/actions';
 
-const mapStateToProps = store => ({});
+const mapStateToProps = store => ({
+  categories: store.categories
+});
 
 const mapDispatchToProps = dispatch => ({
-  addQuestion: question => dispatch(actions.addQuestion(question))
+  addQuestion: question => dispatch(actions.addQuestion(question)),
+  getCategories: categories => dispatch(actions.getCategories(categories))
 });
 
 class SideBar extends Component {
@@ -14,6 +17,28 @@ class SideBar extends Component {
     super(props);
 
     this.addQuestion = this.addQuestion.bind(this);
+  }
+
+  componentDidMount() {
+    fetch('http://localhost:8080/categories', {
+      method: 'GET'
+    })
+      .then(response => {
+        if (response.status >= 400) {
+          throw new Error('Bad response from server');
+        }
+        return response.json();
+      })
+      .then(data => {
+        const categories = data.map(category => {
+          return { name: category.name, _id: category._id };
+        });
+
+        this.props.getCategories(data);
+      })
+      .catch(err => {
+        console.log('error', err);
+      });
   }
 
   addQuestion() {
