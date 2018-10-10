@@ -2,16 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import '../components/style.css';
 import * as actions from '../actions/actions';
-import stores from '../reducers/reducer.js';
+// import stores from '../reducers/reducer.js';
 
-const mapStateToProps = store => {
-  const { subcategories } = store;
-  return {subcategories}
-};
+const mapStateToProps = store => ({
+  subcategories: store.subcategories
+});
 
 const mapDispatchToProps = dispatch => ({
   addQuestion: question => dispatch(actions.addQuestion(question)),
-  addSubcategories: question => dispatch(actions.addSubcategories(question)),
+  addSubcategories: question => dispatch(actions.addSubcategories(question))
 });
 
 class SideBar extends Component {
@@ -32,15 +31,16 @@ class SideBar extends Component {
   }
 
   render() {
-    const populate = this.props.subcategories.map((subCatObj) => {
-      return <div>{subCatObj}</div>;
+    const populate = this.props.subcategories.map((subCatObj, index) => {
+      return <div key={index}>{subCatObj}</div>;
     });
+    console.log(populate);
     return (
       <div id="sidebar-container">
         Hello from SideBAr
         <button onClick={this.addQuestion}>addquestion</button>
         <button onClick={this.addSubcategories}>subcategories</button>
-        { populate }
+        {populate}
       </div>
     );
   }
