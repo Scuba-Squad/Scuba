@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import '../components/style.css';
 import * as actions from '../actions/actions';
-// import stores from '../reducers/reducer.js';
+import stores from '../reducers/reducer.js';
 
 const mapStateToProps = store => {
-  subcategories = store.banks.subcategories
+  const { subcategories } = store;
+  return {subcategories}
 };
 
 const mapDispatchToProps = dispatch => ({
@@ -31,18 +32,15 @@ class SideBar extends Component {
   }
 
   render() {
-    console.log(this.props.subcategories);
-    const displaySubcat = [];
-    // const populate = this.props.subcategories.map((subCatObj,i)=> {
-    //   displaySubcat.push(<div key={i}>subCatObj</div>)
-    // });
+    const populate = this.props.subcategories.map((subCatObj) => {
+      return <div>{subCatObj}</div>;
+    });
     return (
       <div id="sidebar-container">
         Hello from SideBAr
-
         <button onClick={this.addQuestion}>addquestion</button>
         <button onClick={this.addSubcategories}>subcategories</button>
-        {/* {populate} */}
+        { populate }
       </div>
     );
   }
