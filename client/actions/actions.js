@@ -14,3 +14,7 @@ export const clickedCategory = category => ({
   type: types.CLICKED_CATEGORY,
   payload: category
 });
+export const getCategories = categories => ({
+  type: types.GET_CATEGORIES,
+  payload: categories
+});

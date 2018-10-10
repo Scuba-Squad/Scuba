@@ -5,32 +5,41 @@ import * as actions from '../actions/actions';
 // import stores from '../reducers/reducer.js';
 
 const mapStateToProps = store => ({
-  subcategories: store.subcategories,
   categories: store.categories
 });
 
 const mapDispatchToProps = dispatch => ({
-  addQuestion: question => dispatch(actions.addQuestion(question)),
-  addSubcategories: question => dispatch(actions.addSubcategories(question)),
-  clickedCategory: category => dispatch(actions.clickedCategory(category))
+  clickedCategory: category => dispatch(actions.clickedCategory(category)),
+  getCategories: categories => dispatch(actions.getCategories(categories))
 });
 
 class SideBar extends Component {
   constructor(props) {
     super(props);
-    this.addQuestion = this.addQuestion.bind(this);
-    this.addSubcategories = this.addSubcategories.bind(this);
-    this.clickedCategory = this.clickedCategory.bind(this)
+
+    this.clickedCategory = this.clickedCategory.bind(this);
   }
 
-  addQuestion(e) {
-    //testing purpose
-    this.props.addQuestion('hello hello');
-  }
+  componentDidMount() {
+    fetch('http://localhost:8080/categories', {
+      method: 'GET'
+    })
+      .then(response => {
+        if (response.status >= 400) {
+          throw new Error('Bad response from server');
+        }
+        return response.json();
+      })
+      .then(data => {
+        const categories = data.map(category => {
+          return { name: category.name, _id: category._id };
+        });
 
-  addSubcategories(e) {
-    //testing purpose
-    this.props.addSubcategories('subcategories');
+        this.props.getCategories(data);
+      })
+      .catch(err => {
+        console.log('error', err);
+      });
   }
 
   clickedCategory(e) {
