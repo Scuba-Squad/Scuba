@@ -9,11 +9,11 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case types.ADD_QUESTIONS:
-      const categories = state.categories;
-      categories.push(action.payload);
+      const newCategories = state.categories.slice(0)
+      newCategories.push(action.payload);
       return {
         ...state,
-        categories
+        categories: newCategories
       };
 
     case types.ADD_SUBCATEGORIES:

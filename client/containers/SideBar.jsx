@@ -5,7 +5,8 @@ import * as actions from '../actions/actions';
 // import stores from '../reducers/reducer.js';
 
 const mapStateToProps = store => ({
-  subcategories: store.subcategories
+  subcategories: store.subcategories,
+  categories: store.categories
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -31,18 +32,22 @@ class SideBar extends Component {
   }
 
   render() {
-    const populate = this.props.subcategories.map((subCatObj, index) => {
+    const populateSubcategories = this.props.subcategories.map((subCatObj, index) => {
       return <div key={index}>{subCatObj}</div>;
     });
-    console.log(populate);
+    const populateCategories = this.props.categories.map((catObj, index) => {
+      return <div key={index}>{catObj}</div>;
+    })
     return (
       <div id="sidebar-container">
         Hello from SideBAr
         <button onClick={this.addQuestion}>addquestion</button>
+        {populateCategories}
         <button onClick={this.addSubcategories}>subcategories</button>
-        {populate}
+        {populateSubcategories}
       </div>
     );
+
   }
 }
 
