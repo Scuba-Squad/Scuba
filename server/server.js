@@ -43,7 +43,7 @@ app.delete('/categories/:id', Categories.deleteCategory, (req, res) => {
   res.status(200).send('successfully deleted a category');
 });
 
-// add subcategory
+// get subCategories
 app.get('/subCategories', SubCategories.getSubCategories, (req, res) => {
   res.status(200).send('successfully connected to subCategories');
 });
