@@ -3,7 +3,7 @@ import * as types from '../constants/actionTypes';
 const initialState = {
   categories: [],
   subcategories: [],
-  challenges: []
+  challenges: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -14,6 +14,14 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         categories
+      };
+
+    case types.ADD_SUBCATEGORIES:
+      const subcategories = state.subcategories;
+      subcategories.push(action.payload);
+      return {
+        ...state,
+        subcategories
       };
 
     default:
