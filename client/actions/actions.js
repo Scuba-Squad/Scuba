@@ -9,3 +9,8 @@ export const addSubcategories = data => ({
   type: types.ADD_SUBCATEGORIES,
   payload: data
 });
+
+export const clickedCategory = category => ({
+  type: types.CLICKED_CATEGORY,
+  payload: category
+});
