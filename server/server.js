@@ -7,6 +7,7 @@ const cors = require('cors');
 let pg = require('pg');
 
 const Categories = require('./controllers/categoryController');
+const SubCategories = require('./controllers/subCategoryController');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -40,6 +41,30 @@ app.post('/addCategory', Categories.addCategory, (req, res) => {
 // delete category
 app.delete('/categories/:id', Categories.deleteCategory, (req, res) => {
   res.status(200).send('successfully deleted a category');
+});
+
+// add subcategory
+app.get('/subCategories', SubCategories.getSubCategories, (req, res) => {
+  res.status(200).send('successfully connected to subCategories');
+});
+
+// add subcategory
+app.post('/addSubCategory', SubCategories.addSubCategory, (req, res) => {
+  res.status(200).send('successfully added subCategory');
+});
+
+// delete subcategory
+app.delete(
+  '/subCategories/:id',
+  SubCategories.deleteSubCategory,
+  (req, res) => {
+    res.status(200).send('sucessfully deleted subCategory');
+  }
+);
+
+// update subCategory
+app.put('/updateSubCategory', SubCategories.updateSubCategory, (req, res) => {
+  res.status(200).send('successfully updated subCategory');
 });
 
 server.listen(8080, () => {
