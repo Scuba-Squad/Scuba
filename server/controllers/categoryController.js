@@ -11,6 +11,16 @@ module.exports = {
         console.log(error);
       });
   },
+  addCategory(req, res, next) {
+    let userCategory = req.body.name;
+    db.one('INSERT INTO category(name) VALUES($1) RETURNING _id,name', userCategory)
+    .then(data => {
+        res.json(data);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print error;
+    });
+  },
   deleteCategory(req, res, next) {
     let categoryID = parseInt(req.params.id);
     db.result('DELETE FROM category WHERE _id=$1', categoryID)
