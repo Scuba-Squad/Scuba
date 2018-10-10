@@ -3,17 +3,30 @@ import * as types from '../constants/actionTypes';
 const initialState = {
   categories: [],
   subcategories: [],
-  challenges: []
+  challenges: [],
+  selectedCategory: -1,
+  selectedSubCategory: -1,
+  selectedChallenge: -1
 };
 
 const reducer = (state = initialState, action) => {
+  let newCategories;
+
   switch (action.type) {
     case types.ADD_QUESTIONS:
-      const categories = state.categories;
-      categories.push(action.payload);
+      newCategories = state.categories.slice(0);
+      newCategories.push(action.payload);
       return {
         ...state,
-        categories
+        categories: newCategories
+      };
+
+    case types.GET_CATEGORIES:
+      newCategories = action.payload;
+
+      return {
+        ...state,
+        categories: newCategories
       };
 
     default:
