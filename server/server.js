@@ -8,7 +8,7 @@ let pg = require('pg');
 
 const Categories = require('./controllers/categoryController');
 const SubCategories = require('./controllers/subCategoryController');
-
+const Challenges = require('./controllers/challengeController');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
@@ -73,6 +73,9 @@ app.put('/updateSubCategory', SubCategories.updateSubCategory, (req, res) => {
 });
 
 // get all challenges
+app.get('/challenges', Challenges.getChallenges, (req, res) => {
+  res.status(200).send('successfully connected to challenges');
+})
 
 server.listen(8080, () => {
   console.log('listening at http://localhost:8080');
