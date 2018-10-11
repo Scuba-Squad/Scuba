@@ -43,7 +43,7 @@ class SideBar extends Component {
   }
 
   clickedCategory(e) {
-    this.props.clickedCategory(e.target.id)
+    this.props.clickedCategory(e.target.id);
   }
 
   render() {
@@ -61,20 +61,23 @@ class SideBar extends Component {
     //       onClick={this.clickedCategory}>{this.props.subcategories[data].name}</button>)
     // }
     const populateCategories = this.props.categories.map((catObj, index) => {
-      console.log(catObj)
+      console.log(catObj);
       // return <div key={index} id={catObj._id} onClick={this.clickedCategory}><button>{catObj.name}</button></div>;
-      return <button key={index} id={catObj._id} onClick={this.clickedCategory}>{catObj.name}</button>;
-    })
+      return (
+        <button key={index} id={catObj._id} onClick={this.clickedCategory}>
+          {catObj.name}
+        </button>
+      );
+    });
     return (
       <div id="sidebar-container">
         Hello from SideBar
         <button onClick={this.clickedCategory}>Categories</button>
         {populateCategories}
-        { /* <button onClick={this.addSubcategories}>SubCategories</button>
+        {/* <button onClick={this.addSubcategories}>SubCategories</button>
         {populateSubcategories} */}
       </div>
     );
-
   }
 }
 export default connect(
