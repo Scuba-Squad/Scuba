@@ -47,7 +47,7 @@ class MainContainer extends Component {
   }
 
   render() {
-    console.log('ness', this.props.categories[this.props.selectedCategory]);
+    console.log('selected category of categories', this.props.categories[this.props.selectedCategory]);
     return (
       <div id="main-container">
         this is the main container

@@ -4,7 +4,7 @@ const http = require('http');
 const db = require('./postgresql.js');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-let pg = require('pg');
+
 
 const Categories = require('./controllers/categoryController');
 const SubCategories = require('./controllers/subCategoryController');
