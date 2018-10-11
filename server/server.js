@@ -43,6 +43,11 @@ app.delete('/categories/:id', Categories.deleteCategory, (req, res) => {
   res.status(200).send('successfully deleted a category');
 });
 
+// update category
+app.put('/updateCategory', Categories.updateCategory, (req, res) => {
+  res.status(200).send('successfully updated category');
+});
+
 // add subcategory
 app.get('/subCategories', SubCategories.getSubCategories, (req, res) => {
   res.status(200).send('successfully connected to subCategories');
@@ -66,6 +71,8 @@ app.delete(
 app.put('/updateSubCategory', SubCategories.updateSubCategory, (req, res) => {
   res.status(200).send('successfully updated subCategory');
 });
+
+// get all challenges
 
 server.listen(8080, () => {
   console.log('listening at http://localhost:8080');
