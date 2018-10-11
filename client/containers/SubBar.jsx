@@ -37,7 +37,6 @@ class SubBar extends Component {
         return response.json();
       })
       .then(data => {
-        console.log(data);
         const subCategories = data.map(subcategory => {
           return {
             _id: subcategory._id,
@@ -63,15 +62,12 @@ class SubBar extends Component {
     if (buttonCategory) {
       buttonText = buttonCategory.name
     }
-    console.log(buttonText)
     let populateSubcategory = [];
     for (let key in this.props.subcategories) {
-      populateSubcategory.push(<p>{this.props.subcategories[key].name}</p>)
+      populateSubcategory.push(<button key={key}>{this.props.subcategories[key].name}</button>)
     }
-    console.log('hty', this.props.subcategories)
     return (
       <div id="subbar-container">
-
         This is the SuBBar Container
       <button>{buttonText}</button>
         <div>{populateSubcategory}</div>

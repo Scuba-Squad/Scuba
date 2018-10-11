@@ -5,7 +5,6 @@ const db = require('./postgresql.js');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-
 const Categories = require('./controllers/categoryController');
 const SubCategories = require('./controllers/subCategoryController');
 const Challenges = require('./controllers/challengeController');
