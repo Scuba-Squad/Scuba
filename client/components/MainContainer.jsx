@@ -30,7 +30,6 @@ class MainContainer extends Component {
         return response.json();
       })
       .then(data => {
-        console.log(data);
         const subCategories = data.map(subcategory => {
           return {
             _id: subcategory._id,
@@ -61,12 +60,10 @@ class MainContainer extends Component {
     if (buttonCategory) {
       buttonText = buttonCategory.name
     }
-    console.log(buttonText)
     let populateSubcategory = [];
     for (let key in this.props.subcategories) {
       populateSubcategory.push(<p>{this.props.subcategories[key].name}</p>)
     }
-    console.log('hty', this.props.subcategories)
 
     return (
       <div id="main-container">
