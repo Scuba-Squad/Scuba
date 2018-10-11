@@ -11,6 +11,7 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   let newCategories;
+  let newSubCategories;
 
   switch (action.type) {
     case types.ADD_QUESTIONS:
@@ -27,7 +28,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         subcategories: newSubcategories
-      }
+      };
 
     case types.GET_CATEGORIES:
       newCategories = action.payload;
@@ -37,8 +38,15 @@ const reducer = (state = initialState, action) => {
         categories: newCategories
       };
 
-    case types.CLICKED_CATEGORY:
+    case types.GET_SUBCATEGORIES:
+      newSubCategories = action.payload;
 
+      return {
+        ...state,
+        subcategories: newSubCategories
+      };
+
+    case types.CLICKED_CATEGORY:
       const newSelectedCategory = action.payload;
       // const newClickedCategory = state.selectedCategory;
       // newClickedCategory.push(action.payload);
