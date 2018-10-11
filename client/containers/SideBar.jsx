@@ -71,7 +71,7 @@ class SideBar extends Component {
     });
     return (
       <div id="sidebar-container">
-        Hello from SideBar
+        Category
         <button onClick={this.clickedCategory}>Categories</button>
         {populateCategories}
         {/* <button onClick={this.addSubcategories}>SubCategories</button>
