@@ -9,6 +9,7 @@ const mapStateToProps = store => {
   return {subcategories}
 };
 
+
 const mapDispatchToProps = dispatch => ({
   addQuestion: question => dispatch(actions.addQuestion(question)),
   addSubcategories: question => dispatch(actions.addSubcategories(question)),
