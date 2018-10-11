@@ -5,52 +5,81 @@ import * as actions from '../actions/actions';
 // import stores from '../reducers/reducer.js';
 
 const mapStateToProps = store => ({
-  subcategories: store.subcategories,
   categories: store.categories
 });
 
 const mapDispatchToProps = dispatch => ({
-  addQuestion: question => dispatch(actions.addQuestion(question)),
-  addSubcategories: question => dispatch(actions.addSubcategories(question))
+  clickedCategory: category => dispatch(actions.clickedCategory(category)),
+  getCategories: categories => dispatch(actions.getCategories(categories))
 });
 
 class SideBar extends Component {
   constructor(props) {
     super(props);
-    this.addQuestion = this.addQuestion.bind(this);
-    this.addSubcategories = this.addSubcategories.bind(this);
+
+    this.clickedCategory = this.clickedCategory.bind(this);
   }
 
-  addQuestion() {
-    //testing purpose
-    this.props.addQuestion('hello hello');
+  componentDidMount() {
+    fetch('http://localhost:8080/categories', {
+      method: 'GET'
+    })
+      .then(response => {
+        if (response.status >= 400) {
+          throw new Error('Bad response from server');
+        }
+        return response.json();
+      })
+      .then(data => {
+        const categories = data.map(category => {
+          return { name: category.name, _id: category._id };
+        });
+
+        this.props.getCategories(data);
+      })
+      .catch(err => {
+        console.log('error', err);
+      });
   }
 
-  addSubcategories() {
-    //testing purpose
-    this.props.addSubcategories('subcategories');
+  clickedCategory(e) {
+    this.props.clickedCategory(e.target.id);
   }
 
   render() {
-    const populateSubcategories = this.props.subcategories.map((subCatObj, index) => {
-      return <div key={index}>{subCatObj}</div>;
-    });
+    // const populateSubcategories = this.props.subcategories.map((subCatObj, index) => {
+    //   //console.log('1', this.props.subcategories[index])
+    //   return <div key={index}><button>{subCatObj[index]}</button></div>;
+    // });
+
+    // const populateSubcategories = []
+    // for (let data in this.props.subcategories) {
+    //   populateSubcategories.push(
+    //     <button className={this.props.subcategories[data].category_id}
+    //       key={this.props.subcategories[data].subcategory_id}
+    //       id={this.subcategory}
+    //       onClick={this.clickedCategory}>{this.props.subcategories[data].name}</button>)
+    // }
     const populateCategories = this.props.categories.map((catObj, index) => {
-      return <div key={index}>{catObj}</div>;
-    })
+      console.log(catObj);
+      // return <div key={index} id={catObj._id} onClick={this.clickedCategory}><button>{catObj.name}</button></div>;
+      return (
+        <button key={index} id={catObj._id} onClick={this.clickedCategory}>
+          {catObj.name}
+        </button>
+      );
+    });
     return (
       <div id="sidebar-container">
-        Hello from SideBAr
-        <button onClick={this.addQuestion}>addquestion</button>
+        Hello from SideBar
+        <button onClick={this.clickedCategory}>Categories</button>
         {populateCategories}
-        <button onClick={this.addSubcategories}>subcategories</button>
-        {populateSubcategories}
+        {/* <button onClick={this.addSubcategories}>SubCategories</button>
+        {populateSubcategories} */}
       </div>
     );
-
   }
 }
-
 export default connect(
   mapStateToProps,
   mapDispatchToProps
