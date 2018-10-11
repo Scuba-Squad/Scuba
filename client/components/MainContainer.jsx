@@ -51,7 +51,6 @@ class MainContainer extends Component {
     return (
       <div id="main-container">
         this is the main container
-        <button>Testing</button>
       </div>
     );
   }
