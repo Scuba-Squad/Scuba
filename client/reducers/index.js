@@ -4,9 +4,9 @@ import { combineReducers } from 'redux';
 import reducers from './reducer.js';
 
 // combine reducers
-const reducers = combineReducers({
+const reducer = combineReducers({
   // if we had other reducers, they would go here
-  bank: reducers
+  banks: reducers,
 });
 
-export default reducers;
+export default reducer;

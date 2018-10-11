@@ -48,7 +48,7 @@ app.put('/updateCategory', Categories.updateCategory, (req, res) => {
   res.status(200).send('successfully updated category');
 });
 
-// add subcategory
+// get subcategories
 app.get('/subCategories', SubCategories.getSubCategories, (req, res) => {
   res.status(200).send('successfully connected to subCategories');
 });
