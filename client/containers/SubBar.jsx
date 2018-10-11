@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import './style.css';
 import { connect } from 'react-redux';
+import '../components/style.css';
 import * as actions from '../actions/actions';
+// import stores from '../reducers/reducer.js';
+
+
 
 const mapStateToProps = store => ({
   subcategories: store.subcategories,
@@ -14,9 +17,13 @@ const mapDispatchToProps = dispatch => ({
     dispatch(actions.getSubCategories(subcategories))
 });
 
-class MainContainer extends Component {
+
+
+class SubBar extends Component {
   constructor(props) {
     super(props);
+
+    this.clickedCategory = this.clickedCategory.bind(this);
   }
 
   componentDidMount() {
@@ -46,14 +53,9 @@ class MainContainer extends Component {
       });
   }
 
-  // const populateSubcategories = []
-  // for (let data in this.props.subcategories) {
-  //   populateSubcategories.push(
-  //     <button className={this.props.subcategories[data].category_id}
-  //       key={this.props.subcategories[data].subcategory_id}
-  //       id={this.subcategory}
-  //       onClick={this.clickedCategory}>{this.props.subcategories[data].name}</button>)
-  // }
+  clickedCategory(e) {
+    this.props.clickedCategory(e.target.id);
+  }
 
   render() {
     let buttonText = []
@@ -67,11 +69,11 @@ class MainContainer extends Component {
       populateSubcategory.push(<p>{this.props.subcategories[key].name}</p>)
     }
     console.log('hty', this.props.subcategories)
-
     return (
-      <div id="main-container">
-        This is the Main Container
-        <button>{buttonText}</button>
+      <div id="subbar-container">
+
+        This is the SuBBar Container
+      <button>{buttonText}</button>
         <div>{populateSubcategory}</div>
       </div>
     );
@@ -80,4 +82,4 @@ class MainContainer extends Component {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(MainContainer);
+)(SubBar);
