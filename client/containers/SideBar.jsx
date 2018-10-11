@@ -43,7 +43,6 @@ class SideBar extends Component {
   }
 
   clickedCategory(e) {
-    console.log("e", e.target)
     this.props.clickedCategory(e.target.id);
   }
 
@@ -62,7 +61,6 @@ class SideBar extends Component {
     //       onClick={this.clickedCategory}>{this.props.subcategories[data].name}</button>)
     // }
     const populateCategories = this.props.categories.map((catObj, index) => {
-      console.log("catObj", catObj);
       // return <div key={index} id={catObj._id} onClick={this.clickedCategory}><button>{catObj.name}</button></div>;
       return (
         <button key={index} id={catObj._id} onClick={this.clickedCategory}>
