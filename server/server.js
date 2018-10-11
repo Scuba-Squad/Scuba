@@ -4,11 +4,11 @@ const http = require('http');
 const db = require('./postgresql.js');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-let pg = require('pg');
+
 
 const Categories = require('./controllers/categoryController');
 const SubCategories = require('./controllers/subCategoryController');
-
+const Challenges = require('./controllers/challengeController');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
@@ -43,7 +43,12 @@ app.delete('/categories/:id', Categories.deleteCategory, (req, res) => {
   res.status(200).send('successfully deleted a category');
 });
 
-// get subCategories
+// update category
+app.put('/updateCategory', Categories.updateCategory, (req, res) => {
+  res.status(200).send('successfully updated category');
+});
+
+// get subcategories
 app.get('/subCategories', SubCategories.getSubCategories, (req, res) => {
   res.status(200).send('successfully connected to subCategories');
 });
@@ -66,6 +71,11 @@ app.delete(
 app.put('/updateSubCategory', SubCategories.updateSubCategory, (req, res) => {
   res.status(200).send('successfully updated subCategory');
 });
+
+// get all challenges
+app.get('/challenges', Challenges.getChallenges, (req, res) => {
+  res.status(200).send('successfully connected to challenges');
+})
 
 server.listen(8080, () => {
   console.log('listening at http://localhost:8080');
