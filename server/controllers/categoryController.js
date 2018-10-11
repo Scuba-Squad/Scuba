@@ -38,5 +38,19 @@ module.exports = {
     //   .catch(error => {
     //     console.log('error: ', error);
     //   });
+  },
+  updateCategory(req, res, next) {
+    let { name, _id } = req.body;
+    db.query(
+      'UPDATE category SET name=$1 WHERE _id=$2 RETURNING _id, name',
+      [name, _id]
+    )
+    .then(result => {
+      res.status(200).json(result);
+      return next;
+    })
+    .catch(err => {
+      return err;
+    });
   }
 };
