@@ -6,73 +6,87 @@ import * as actions from '../actions/actions';
 const mapStateToProps = store => ({
   subcategories: store.subcategories,
   categories: store.categories,
-  selectedCategory: store.selectedCategory
+  selectedCategory: store.selectedCategory,
+  challenges: store.challenges,
+  selectedChallengeeh : store.selectedChallenge,
+  selectedSubCategory: store.selectedSubCategory
 });
 
 const mapDispatchToProps = dispatch => ({
-  getSubCategories: subcategories =>
-    dispatch(actions.getSubCategories(subcategories))
+  getChallenges: challenges => dispatch(actions.getChallenges(challenges)),
+  selectedChallenge: challenge => dispatch(actions.selectedChallenge(challenge))
 });
+
 
 class MainContainer extends Component {
   constructor(props) {
     super(props);
+
+    this.selectedChallenge = this.selectedChallenge.bind(this);
   }
 
-  componentDidMount() {
-    fetch('http://localhost:8080/subCategories', {
+  componentDidMount(){
+    fetch('http://localhost:8080/challenges', {
       method: 'GET'
     })
-      .then(response => {
-        if (response.status >= 400) {
-          throw new Error('Bad response from server');
-        }
-        return response.json();
-      })
-      .then(data => {
-        console.log(data);
-        const subCategories = data.map(subcategory => {
-          return {
-            _id: subcategory._id,
-            name: subcategory.name,
-            category_id: subcategory.category_id
-          };
-        });
-
-        this.props.getSubCategories(subCategories);
-      })
-      .catch(err => {
-        console.log('error', err);
+    .then(response => {
+      if (response.status >= 400) {
+        throw new Error('Bad response from server');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log(data);
+      const challenges = data.map(challenge => {
+        return {
+          _id: challenge._id,
+          name: challenge.name,
+          subcategory_id: challenge.subcategory_id,
+          problem: challenge.problem,
+          solution: challenge.solution
+        };
       });
+    
+      // Dispatch getChallenges action to reducer 
+      // This will update state in reducers
+      this.props.getChallenges(challenges);
+    })
+    .catch(err => {
+      console.log('error', err);
+    });
   }
 
-  // const populateSubcategories = []
-  // for (let data in this.props.subcategories) {
-  //   populateSubcategories.push(
-  //     <button className={this.props.subcategories[data].category_id}
-  //       key={this.props.subcategories[data].subcategory_id}
-  //       id={this.subcategory}
-  //       onClick={this.clickedCategory}>{this.props.subcategories[data].name}</button>)
-  // }
+  selectedChallenge(e){
+    this.props.selectedChallenge(e.target.id);
+  }
+
 
   render() {
-    let buttonText = []
-    const buttonCategory = this.props.categories[this.props.selectedCategory - 1]
-    if (buttonCategory) {
-      buttonText = buttonCategory.name
-    }
-    console.log(buttonText)
-    let populateSubcategory = [];
-    for (let key in this.props.subcategories) {
-      populateSubcategory.push(<p>{this.props.subcategories[key].name}</p>)
-    }
-    console.log('hty', this.props.subcategories)
+    console.log('hey: ', this.props.selectedChallengeeh);
+    const challenge = this.props.challenges.map(challengeObj => {
+      // console.log('yay; ',challengeObj._id);
+      // console.log('nay: ', this.props.selectedChallenge);
+      if (Number(this.props.selectedChallengeeh) === challengeObj._id){
+        console.log(challengeObj.problem);
+        return(<p>{challengeObj.problem}</p>)
+      }
+    })
+
+    const challenges = this.props.challenges.map(challengeObj => {
+      if (Number(this.props.selectedSubCategory) === challengeObj.subcategory_id){
+        return(<button id={challengeObj._id} onClick={this.selectedChallenge}>{challengeObj.name}</button>)
+      }
+    })
+
+    
+
 
     return (
-      <div id="main-container">
-        This is the Main Container
-        <button>{buttonText}</button>
-        <div>{populateSubcategory}</div>
+      <div align="center" id="main-container">
+        Questions
+        {challenges}
+
+        {challenge}
       </div>
     );
   }

@@ -42,8 +42,9 @@ class SideBar extends Component {
       });
   }
 
-  clickedCategory(e) {
-    this.props.clickedCategory(e.target.id);
+  clickedCategory(event) {
+    // console.log("event", event.target);
+    this.props.clickedCategory(event.target.id);
   }
 
   render() {
@@ -70,9 +71,9 @@ class SideBar extends Component {
       );
     });
     return (
-      <div id="sidebar-container">
-        Category
-        <button onClick={this.clickedCategory}>Categories</button>
+      <div align="center" id="sidebar-container">
+        Categories
+        {/* <button onClick={this.clickedCategory}>Categories</button> */}
         {populateCategories}
         {/* <button onClick={this.addSubcategories}>SubCategories</button>
         {populateSubcategories} */}
