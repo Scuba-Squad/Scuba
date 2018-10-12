@@ -5,25 +5,25 @@ import * as actions from '../actions/actions';
 // import stores from '../reducers/reducer.js';
 
 
-
+// Where you read from store
 const mapStateToProps = store => ({
   subcategories: store.subcategories,
   categories: store.categories,
-  selectedCategory: store.selectedCategory
+  selectedCategory: store.selectedCategory,
+  selectedSubCategory: store.selectedSubCategory
 });
 
+// Where you update store
 const mapDispatchToProps = dispatch => ({
-  getSubCategories: subcategories =>
-    dispatch(actions.getSubCategories(subcategories))
+  getSubCategories: subcategories => dispatch(actions.getSubCategories(subcategories)),
+  clickedSubCategory: subcategory => dispatch(actions.clickedSubCategory(subcategory)) 
 });
-
-
 
 class SubBar extends Component {
   constructor(props) {
     super(props);
 
-    this.clickedCategory = this.clickedCategory.bind(this);
+    this.clickedSubCategory = this.clickedSubCategory.bind(this);
   }
 
   componentDidMount() {
@@ -45,7 +45,9 @@ class SubBar extends Component {
             category_id: subcategory.category_id
           };
         });
-
+      
+        // Dispatch getSubCategories action to reducer 
+        // This will update state in reducers
         this.props.getSubCategories(subCategories);
       })
       .catch(err => {
@@ -53,28 +55,23 @@ class SubBar extends Component {
       });
   }
 
-  clickedCategory(e) {
-    this.props.clickedCategory(e.target.id);
+  clickedSubCategory(event) {
+    this.props.clickedSubCategory(event.target.id);
+    console.log("testing!!!", event.target.id);
   }
 
   render() {
-    let buttonText = []
-    const buttonCategory = this.props.categories[this.props.selectedCategory - 1]
-    if (buttonCategory) {
-      buttonText = buttonCategory.name
-    }
-    console.log(buttonText)
-    let populateSubcategory = [];
-    for (let key in this.props.subcategories) {
-      populateSubcategory.push(<p>{this.props.subcategories[key].name}</p>)
-    }
-    console.log('hty', this.props.subcategories)
+    const subCats = this.props.subcategories.map((subcategory, index) => {
+      if(subcategory.category_id === Number(this.props.selectedCategory)){
+        // <button key={index} id={catObj._id} onClick={this.clickedCategory}>
+        return (<button key={index} id={subcategory._id} onClick={this.clickedSubCategory}>{subcategory.name}</button>)
+      }
+    })
+    
     return (
-      <div id="subbar-container">
-
-        This is the SuBBar Container
-      <button>{buttonText}</button>
-        <div>{populateSubcategory}</div>
+      <div align="center" id="subbar-container">
+        Sub-Categories
+        <div>{subCats}</div>
       </div>
     );
   }

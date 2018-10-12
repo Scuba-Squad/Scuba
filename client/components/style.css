@@ -2,7 +2,6 @@
   font-family: helvetica, sans-serif;
 }
 
-
 #app-container {
   display: flex;
   flex-direction: row;
@@ -32,3 +31,9 @@
   width: 25%;
   background: rgb(128, 240, 203);
 }
+
+/* button {
+  border: none;
+  background-color: transparent;
+  font-size: 12px;
+} */
